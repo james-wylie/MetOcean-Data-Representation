@@ -65,11 +65,14 @@
     </head>
     <body>
        <div id="app">
-            <home></home>
+       <router-view></router-view>
+            <!-- <home></home> -->
             <!-- <routerview></routerview> -->
-            Hello
+  
        </div>
 
        <script src="../js/app.js"></script>
+       <script src="https://d3js.org/d3.v5.min.js"></script>
+
     </body>
 </html>
