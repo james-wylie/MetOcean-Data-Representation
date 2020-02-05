@@ -1,7 +1,16 @@
 
 <template>
-    <div>
+    <div class="textsize">
     <svg></svg>
+    <form>
+      <div @click="this.metData(val, metData.lev[key])" class="btn btn-primary">Elevation</div>
+      <button class="btn btn-primary">Significant Wave Height</button>
+      <button class="btn btn-primary">Spectral estimate of maximum wave</button>
+      <button class="btn btn-primary">Peak Period</button>
+      <button class="btn btn-primary">Mean Wave period</button>
+      <button class="btn btn-primary">Mean Wave period</button>
+      <button class="btn btn-primary">Peak wave direction (from)</button>
+    </form>
   </div>
 </template>
 
@@ -83,9 +92,9 @@ export default {
   methods: {
       renderChart(data, key){
         const margin = 60;
-        const svg_width = 1400;
+        const svg_width = 1600;
         const svg_height = 800;
-        const chart_width = 1400 - 2 * margin;
+        const chart_width = 1600 - 2 * margin;
         const chart_height = 800 - 2 * margin;
 
         const svg = d3
@@ -107,6 +116,7 @@ export default {
 
   this.chart
     .append("g")
+    .style("font", "14px sans-serif")
     .call(d3.axisLeft(yScale).ticks(_.maxBy(data, key).key));
 
   const xScale = d3
@@ -117,6 +127,7 @@ export default {
 
   this.chart
     .append("g")
+    .style("font", "14px sans-serif")
     .attr("transform", `translate(0, ${chart_height})`)
     .call(d3.axisBottom(xScale));
 
@@ -130,34 +141,34 @@ export default {
   barGroups
     .append("rect")
     .attr("class", "bar")
-    .attr("x", g => xScale(g.hour  ))
+    .attr("x", g => xScale(g.hour))
     .attr("y", g => yScale(g.id ))
     .attr("height", g => chart_height - yScale(g.id))
     .attr("width", xScale.bandwidth())
     .attr("width", xScale.bandwidth())
    
     // Add numbers to each Bar on the graph. 
-    .append("text")
-    .attr("class", "value")
-    .attr("x", a => xScale(a.hour) + xScale.bandwidth() / 2)
-    .attr("y", a => yScale(a.hour) - 20)
-    .attr("text-anchor", "middle")
-    .text((a, idx) => {
-      return idx !== i ? "" : `${a.hour} Facts! `;  
-        })
-      .attr("width", xScale.bandwidth())
-    .on("mouseleave", function() {
-        d3.selectAll(".issues").attr("opacity", 1);
+    // .append("text")
+    // .attr("class", "value")
+    // .attr("x", a => xScale(a.hour) + xScale.bandwidth() / 2)
+    // .attr("y", a => yScale(a.hour) - 20)
+    // .attr("text-anchor", "middle")
+    // .text((a, idx) => {
+    //   return idx !== i ? "" : `${a.hour} Facts! `;  
+    //     })
+    //   .attr("width", xScale.bandwidth())
+    // .on("mouseleave", function() {
+    //     d3.selectAll(".issues").attr("opacity", 1);
 
-        d3.select(this)
-          .transition()
-          .duration(300)
-          .attr("opacity", 1)
-          .attr("x", a => xScale(a.hour))
-          .attr("width", xScale.bandwidth());
+    //     d3.select(this)
+    //       .transition()
+    //       .duration(300)
+    //       .attr("opacity", 1)
+    //       .attr("x", a => xScale(a.hour))
+    //       .attr("width", xScale.bandwidth());
 
-        svg.selectAll(".value").remove();
-        });
+    //     svg.selectAll(".value").remove();
+    //     });
 
 
     // Setting up the labels
@@ -169,9 +180,8 @@ export default {
       .attr('y', margin / 2.4)
       .attr('transform', 'rotate(-90)')
       .attr('text-anchor', 'middle')
-      .text('Y TExt')
-  // Here we could set up a file showing each of the 'Y' texts?   
-    // Keeps disappearing! and reappearing!
+      .text('Key')
+ 
     svg
       .append('text')
       .attr('class', 'label')
@@ -195,9 +205,18 @@ export default {
 
 	<style>
 
+  .textsize{
+    font: 20px sans-serif;
+  }
+
 	.axis {
-	  font: 10px sans-serif;
+	  font: 20px sans-serif;
 	}
+
+  .label, .bar {
+	  font: 20px sans-serif;
+
+  }
 
 	.axis path,
 	.axis line {

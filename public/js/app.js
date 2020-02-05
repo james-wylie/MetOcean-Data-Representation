@@ -2014,6 +2014,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2070,20 +2079,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: {
     renderChart: function renderChart(data, key) {
       var margin = 60;
-      var svg_width = 1400;
+      var svg_width = 1600;
       var svg_height = 800;
-      var chart_width = 1400 - 2 * margin;
+      var chart_width = 1600 - 2 * margin;
       var chart_height = 800 - 2 * margin;
       var svg = d3__WEBPACK_IMPORTED_MODULE_0__["select"]("svg").attr("width", svg_width).attr("height", svg_height); // Setting the Axes
 
       this.chart = svg.append("g").attr("transform", "translate(".concat(margin, ", ").concat(margin, ")"));
       var yScale = d3__WEBPACK_IMPORTED_MODULE_0__["scaleLinear"]().range([chart_height, 0]).domain([0, lodash__WEBPACK_IMPORTED_MODULE_1___default.a.maxBy(data, key).id]); // Above this domain is where it is at!
 
-      this.chart.append("g").call(d3__WEBPACK_IMPORTED_MODULE_0__["axisLeft"](yScale).ticks(lodash__WEBPACK_IMPORTED_MODULE_1___default.a.maxBy(data, key).key));
+      this.chart.append("g").style("font", "14px sans-serif").call(d3__WEBPACK_IMPORTED_MODULE_0__["axisLeft"](yScale).ticks(lodash__WEBPACK_IMPORTED_MODULE_1___default.a.maxBy(data, key).key));
       var xScale = d3__WEBPACK_IMPORTED_MODULE_0__["scaleBand"]().range([0, chart_width]).domain(data.map(function (s) {
         return s.hour;
       })).padding(0.2);
-      this.chart.append("g").attr("transform", "translate(0, ".concat(chart_height, ")")).call(d3__WEBPACK_IMPORTED_MODULE_0__["axisBottom"](xScale)); // BARS THEMSELVES          
+      this.chart.append("g").style("font", "14px sans-serif").attr("transform", "translate(0, ".concat(chart_height, ")")).call(d3__WEBPACK_IMPORTED_MODULE_0__["axisBottom"](xScale)); // BARS THEMSELVES          
 
       var barGroups = this.chart.selectAll("rect").data(data).enter();
       barGroups.append("rect").attr("class", "bar").attr("x", function (g) {
@@ -2092,24 +2101,29 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return yScale(g.id);
       }).attr("height", function (g) {
         return chart_height - yScale(g.id);
-      }).attr("width", xScale.bandwidth()).attr("width", xScale.bandwidth()) // Add numbers to each Bar on the graph. 
-      .append("text").attr("class", "value").attr("x", function (a) {
-        return xScale(a.hour) + xScale.bandwidth() / 2;
-      }).attr("y", function (a) {
-        return yScale(a.hour) - 20;
-      }).attr("text-anchor", "middle").text(function (a, idx) {
-        return idx !== i ? "" : "".concat(a.hour, " Facts! ");
-      }).attr("width", xScale.bandwidth()).on("mouseleave", function () {
-        d3__WEBPACK_IMPORTED_MODULE_0__["selectAll"](".issues").attr("opacity", 1);
-        d3__WEBPACK_IMPORTED_MODULE_0__["select"](this).transition().duration(300).attr("opacity", 1).attr("x", function (a) {
-          return xScale(a.hour);
-        }).attr("width", xScale.bandwidth());
-        svg.selectAll(".value").remove();
-      }); // Setting up the labels
+      }).attr("width", xScale.bandwidth()).attr("width", xScale.bandwidth()); // Add numbers to each Bar on the graph. 
+      // .append("text")
+      // .attr("class", "value")
+      // .attr("x", a => xScale(a.hour) + xScale.bandwidth() / 2)
+      // .attr("y", a => yScale(a.hour) - 20)
+      // .attr("text-anchor", "middle")
+      // .text((a, idx) => {
+      //   return idx !== i ? "" : `${a.hour} Facts! `;  
+      //     })
+      //   .attr("width", xScale.bandwidth())
+      // .on("mouseleave", function() {
+      //     d3.selectAll(".issues").attr("opacity", 1);
+      //     d3.select(this)
+      //       .transition()
+      //       .duration(300)
+      //       .attr("opacity", 1)
+      //       .attr("x", a => xScale(a.hour))
+      //       .attr("width", xScale.bandwidth());
+      //     svg.selectAll(".value").remove();
+      //     });
+      // Setting up the labels
 
-      svg.append('text').attr('class', 'label').attr('x', -(chart_height / 2) - margin).attr('y', margin / 2.4).attr('transform', 'rotate(-90)').attr('text-anchor', 'middle').text('Y TExt'); // Here we could set up a file showing each of the 'Y' texts?   
-      // Keeps disappearing! and reappearing!
-
+      svg.append('text').attr('class', 'label').attr('x', -(chart_height / 2) - margin).attr('y', margin / 2.4).attr('transform', 'rotate(-90)').attr('text-anchor', 'middle').text('Key');
       svg.append('text').attr('class', 'label').attr('x', chart_width / 2 + margin).attr('y', chart_height + margin * 1.7).attr('text-anchor', 'middle').text('Time of Day');
       svg.append('text').attr('class', 'title').attr('x', chart_width / 2 + margin).attr('y', 40).attr('text-anchor', 'middle').text('MetData');
     }
@@ -6870,7 +6884,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.axis {\n  font: 10px sans-serif;\n}\n.axis path,\n.axis line {\n  fill: none;\n  stroke: #000;\n  shape-rendering: crispEdges;\n}\n\n", ""]);
+exports.push([module.i, "\n.textsize{\n    font: 20px sans-serif;\n}\n.axis {\n\t  font: 20px sans-serif;\n}\n.label, .bar {\n\t  font: 20px sans-serif;\n}\n.axis path,\n\t.axis line {\n\t  fill: none;\n\t  stroke: #000;\n\t  shape-rendering: crispEdges;\n}\n\n\t", ""]);
 
 // exports
 
@@ -67770,7 +67784,46 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_c("svg")])
+  return _c("div", { staticClass: "textsize" }, [
+    _c("svg"),
+    _vm._v(" "),
+    _c("form", [
+      _c(
+        "div",
+        {
+          staticClass: "btn btn-primary",
+          on: {
+            click: function($event) {
+              return this.metData(_vm.val, _vm.metData.lev[_vm.key])
+            }
+          }
+        },
+        [_vm._v("Elevation")]
+      ),
+      _vm._v(" "),
+      _c("button", { staticClass: "btn btn-primary" }, [
+        _vm._v("Significant Wave Height")
+      ]),
+      _vm._v(" "),
+      _c("button", { staticClass: "btn btn-primary" }, [
+        _vm._v("Spectral estimate of maximum wave")
+      ]),
+      _vm._v(" "),
+      _c("button", { staticClass: "btn btn-primary" }, [_vm._v("Peak Period")]),
+      _vm._v(" "),
+      _c("button", { staticClass: "btn btn-primary" }, [
+        _vm._v("Mean Wave period")
+      ]),
+      _vm._v(" "),
+      _c("button", { staticClass: "btn btn-primary" }, [
+        _vm._v("Mean Wave period")
+      ]),
+      _vm._v(" "),
+      _c("button", { staticClass: "btn btn-primary" }, [
+        _vm._v("Peak wave direction (from)")
+      ])
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
