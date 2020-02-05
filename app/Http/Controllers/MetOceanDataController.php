@@ -7,10 +7,20 @@ use App\MetOceanData;
 
 class MetOceanDataController extends Controller
 {
+
+    // Hidden function
+    public function removeMeasures($arr) 
+    {
+        
+    }
+
     public function index()
     {
     $OceanData = MetOceanData::paginate(25);
     
+    // $OceanData
+
+
     return $OceanData;
     }
     

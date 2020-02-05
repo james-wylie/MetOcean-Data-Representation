@@ -1925,6 +1925,38 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
@@ -1935,6 +1967,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       metData: [],
       metDataEntry: (_metDataEntry = {
+        Time: '',
+        id: '',
         lev: '',
         hs: '',
         hx: '',
@@ -1972,11 +2006,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this = this;
 
       axios.get('get-metocean-data').then(function (res) {
-        console.log(res.data.data);
         _this.metData = res.data.data;
+        console.log(_this.metData);
       })["catch"](function (err) {
         console.log(err);
       });
+    },
+    sendOutMetData: function sendOutMetData() {
+      console.log(metData);
     }
   }
 });
@@ -37359,19 +37396,21 @@ var render = function() {
       { staticClass: "row justify-content-center" },
       _vm._l(_vm.metData, function(metDataEntry, index) {
         return _c("div", { key: metDataEntry.id }, [
+          _vm._m(0, true),
+          _vm._v(" "),
           _c("p", [
             _vm._v(
               " " +
-                _vm._s(_vm.metData.lev) +
+                _vm._s(metDataEntry.lev) +
                 "\n        " +
-                _vm._s(_vm.metData.hs) +
+                _vm._s(metDataEntry.hs) +
                 "\n        " +
-                _vm._s(_vm.metData.hx) +
+                _vm._s(metDataEntry.hx) +
                 "\n        " +
-                _vm._s(_vm.metData.tp) +
+                _vm._s(metDataEntry.tp) +
                 "\n        " +
-                _vm._s(_vm.metData.tm01) +
-                " "
+                _vm._s(metDataEntry.tm01) +
+                " Help"
             )
           ])
         ])
@@ -37380,7 +37419,70 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("table", [
+      _c("tr", [
+        _c("th", [_vm._v("Date")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Elevation")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Significant Wave Height")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Spectral estimate of maximum wave")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Peak Period")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Mean Wave period")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Mean wave period")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Peak wave direction (from)")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Mean direction at peak frequency (from)")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Significant wave height of primary swell")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Significant wave height of swell (> 8s)")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Peak period of Primary Swell")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Peak period of swell (>8s)")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Mean direction at swell peak frequency (from)")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Mean direction of primary swell peak frequency")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Significant wave height of sea")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Significant wave height of wind sea")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Peak period of wind sea")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Mean period of wind sea")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Mean direction at sea peak freqeuncy (from)")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Mean direction at wind sea peak frequency (from)")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Infragravity significant wave height")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Far infragravity wave height")]),
+        _vm._v(" "),
+        _c("th"),
+        _vm._v(" "),
+        _c("th"),
+        _vm._v(" "),
+        _c("th"),
+        _vm._v(" "),
+        _c("th")
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
