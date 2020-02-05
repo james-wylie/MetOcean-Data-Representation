@@ -2023,6 +2023,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -2032,7 +2033,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
     return {
       chart: null,
-      key: 'dpm',
+      keys: {},
+      chosenMetData: [],
       metData: [],
       metDataEntry: (_metDataEntry = {
         Time: '',
@@ -2067,16 +2069,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   watch: {
-    metData: function metData(val, key) {
+    metData: function metData(val) {
       if (this.chart != null) this.chart.remove();
-      this.renderChart(val, this.key);
+      console.log(this.keys);
+      this.renderChart(this.metData, this.keys[1]);
     }
   },
   created: function created() {
     this.fetchMetOceanData = _shared__WEBPACK_IMPORTED_MODULE_2__["default"].fetchMetOceanData;
     this.fetchMetOceanData();
+    this.getKeys();
   },
   methods: {
+    refreshMetData: function refreshMetData(val, key) {
+      if (this.chart != null) this.chart.remove();
+      this.renderChart(this.metData, val);
+    },
+    getKeys: function getKeys() {
+      this.keys = Object.keys(this.metDataEntry);
+    },
     renderChart: function renderChart(data, key) {
       var margin = 60;
       var svg_width = 1600;
@@ -2086,9 +2097,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var svg = d3__WEBPACK_IMPORTED_MODULE_0__["select"]("svg").attr("width", svg_width).attr("height", svg_height); // Setting the Axes
 
       this.chart = svg.append("g").attr("transform", "translate(".concat(margin, ", ").concat(margin, ")"));
-      var yScale = d3__WEBPACK_IMPORTED_MODULE_0__["scaleLinear"]().range([chart_height, 0]).domain([0, lodash__WEBPACK_IMPORTED_MODULE_1___default.a.maxBy(data, key).id]); // Above this domain is where it is at!
+      var yScale = d3__WEBPACK_IMPORTED_MODULE_0__["scaleLinear"]().range([chart_height, 0]).domain([0, lodash__WEBPACK_IMPORTED_MODULE_1___default.a.maxBy(data, key).dpm]); // Above this domain is where it is at!
 
-      this.chart.append("g").style("font", "14px sans-serif").call(d3__WEBPACK_IMPORTED_MODULE_0__["axisLeft"](yScale).ticks(lodash__WEBPACK_IMPORTED_MODULE_1___default.a.maxBy(data, key).key));
+      this.chart.append("g").style("font", "14px sans-serif").call(d3__WEBPACK_IMPORTED_MODULE_0__["axisLeft"](yScale).ticks(lodash__WEBPACK_IMPORTED_MODULE_1___default.a.maxBy(data, key).dpm));
       var xScale = d3__WEBPACK_IMPORTED_MODULE_0__["scaleBand"]().range([0, chart_width]).domain(data.map(function (s) {
         return s.hour;
       })).padding(0.2);
@@ -2098,9 +2109,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       barGroups.append("rect").attr("class", "bar").attr("x", function (g) {
         return xScale(g.hour);
       }).attr("y", function (g) {
-        return yScale(g.id);
+        return yScale(g.dpm);
       }).attr("height", function (g) {
-        return chart_height - yScale(g.id);
+        return chart_height - yScale(g.dpm);
       }).attr("width", xScale.bandwidth()).attr("width", xScale.bandwidth()); // Add numbers to each Bar on the graph. 
       // .append("text")
       // .attr("class", "value")
@@ -67794,7 +67805,20 @@ var render = function() {
           staticClass: "btn btn-primary",
           on: {
             click: function($event) {
-              return this.metData(_vm.val, _vm.metData.lev[_vm.key])
+              return this.renderChart(this.metData, "id")
+            }
+          }
+        },
+        [_vm._v("ID")]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "btn btn-primary",
+          on: {
+            click: function($event) {
+              return this.renderChart(this.metData, "lev")
             }
           }
         },

@@ -3,7 +3,8 @@
     <div class="textsize">
     <svg></svg>
     <form>
-      <div @click="this.metData(val, metData.lev[key])" class="btn btn-primary">Elevation</div>
+      <div @click="this.renderChart(this.metData, 'id')" class="btn btn-primary">ID</div>
+      <div @click="this.renderChart(this.metData, 'lev')" class="btn btn-primary">Elevation</div>
       <button class="btn btn-primary">Significant Wave Height</button>
       <button class="btn btn-primary">Spectral estimate of maximum wave</button>
       <button class="btn btn-primary">Peak Period</button>
@@ -26,7 +27,8 @@ export default {
   data() {
             return {
                 chart: null,
-                key: 'dpm',
+                keys: {},
+                chosenMetData: [],
                 metData: [],
                 metDataEntry: {
                     Time: '',
@@ -75,21 +77,36 @@ export default {
             },
 
         watch: {
-          metData(val, key) {
-          if (this.chart != null) this.chart.remove();
-
-          this.renderChart(val, this.key);
-          }
-        },
+          metData(val) {
+            if (this.chart != null) this.chart.remove();
+            console.log(this.keys)
+            this.renderChart(this.metData, this.keys[1]);
+    }
+  }
+    ,
 
         created(){
             this.fetchMetOceanData = shared.fetchMetOceanData
             this.fetchMetOceanData()
+            this.getKeys();
+         
         }, 
 
  
 
   methods: {
+
+
+            refreshMetData(val, key) {
+            if (this.chart != null) this.chart.remove();
+            this.renderChart(this.metData, val);
+            },
+            getKeys() {
+              this.keys = Object.keys(this.metDataEntry)
+            },
+        
+   
+
       renderChart(data, key){
         const margin = 60;
         const svg_width = 1600;
@@ -111,13 +128,13 @@ export default {
   const yScale = d3
     .scaleLinear()
     .range([chart_height, 0])
-    .domain([0, _.maxBy(data, key).id]);
+    .domain([0, _.maxBy(data, key).dpm]);
   // Above this domain is where it is at!
 
   this.chart
     .append("g")
     .style("font", "14px sans-serif")
-    .call(d3.axisLeft(yScale).ticks(_.maxBy(data, key).key));
+    .call(d3.axisLeft(yScale).ticks(_.maxBy(data, key).dpm));
 
   const xScale = d3
     .scaleBand()
@@ -142,8 +159,8 @@ export default {
     .append("rect")
     .attr("class", "bar")
     .attr("x", g => xScale(g.hour))
-    .attr("y", g => yScale(g.id ))
-    .attr("height", g => chart_height - yScale(g.id))
+    .attr("y", g => yScale(g.dpm ))
+    .attr("height", g => chart_height - yScale(g.dpm))
     .attr("width", xScale.bandwidth())
     .attr("width", xScale.bandwidth())
    
