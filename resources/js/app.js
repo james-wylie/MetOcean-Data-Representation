@@ -8,6 +8,7 @@ window.Vue = require('vue');
 Vue.use(VueRouter)
 
 Vue.component('metdatalist', require('./components/metdatalist.vue').default);
+Vue.component('calendar', require('./components/calendar.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
