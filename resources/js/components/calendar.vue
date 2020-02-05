@@ -14,11 +14,12 @@
                 </tr> 
 
                 <tr  v-for="(metDataEntry, index) in metData" :key="metDataEntry.id">
+                    <!-- <router-link :to="{ name: 'showHour', params: {id: metDataEntry.id }}" > -->
                     <td>{{metDataEntry.Time}}</td>    
                     <td>{{metDataEntry.id}}</td>    
                     <td>{{metDataEntry.day}}</td>    
                     <td>{{metDataEntry.hour}}</td>    
-                                        
+                    <!-- </router-link> -->
                 </tr>  
             </table>    
 
@@ -28,6 +29,8 @@
 </template>
 
 <script>
+    import shared from '../shared'
+
     export default {
         mounted() {
             console.log('Component mounted.')
@@ -81,27 +84,11 @@
             }
         },
         created(){
+            this.fetchMetOceanData = shared.fetchMetOceanData
             this.fetchMetOceanData()
         }, 
         methods: {
-            fetchMetOceanData() {
-                axios.get('get-metocean-data')
-                    .then(res => {
-                        let newMap = res.data.map(el => {
-                            let day_hour = el.Time.split(" ")
-                            el.day = day_hour[0]
-                            el.hour = day_hour[1]
-                            return el
-                        })
-                        this.metData = res.data
-                    })                    
-                    .catch(err => {
-                        console.log(err)
-                    })
-            },
-            sendOutMetData(){
-                console.log(metData)
-            }
+            
         }
     }
 </script>

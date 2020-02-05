@@ -1908,6 +1908,7 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _shared__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../shared */ "./resources/js/shared.js");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
@@ -1939,6 +1940,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
@@ -1981,29 +1984,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   created: function created() {
+    this.fetchMetOceanData = _shared__WEBPACK_IMPORTED_MODULE_0__["default"].fetchMetOceanData;
     this.fetchMetOceanData();
   },
-  methods: {
-    fetchMetOceanData: function fetchMetOceanData() {
-      var _this = this;
-
-      axios.get('get-metocean-data').then(function (res) {
-        var newMap = res.data.map(function (el) {
-          var day_hour = el.Time.split(" ");
-          el.day = day_hour[0];
-          el.hour = day_hour[1];
-          return el;
-        });
-        _this.metData = res.data;
-      })["catch"](function (err) {
-        console.log(err);
-      });
-    },
-    sendOutMetData: function sendOutMetData() {
-      console.log(metData);
-    }
-  }
+  methods: {}
 });
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/home.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/home.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
 
@@ -2161,28 +2165,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   created: function created() {
+    this.fetchMetOceanData = shared.fetchMetOceanData;
     this.fetchMetOceanData();
   },
-  methods: {
-    fetchMetOceanData: function fetchMetOceanData() {
-      var _this = this;
-
-      axios.get('get-metocean-data').then(function (res) {
-        var newMap = res.data.map(function (el) {
-          var day_hour = el.Time.split(" ");
-          el.day = day_hour[0];
-          el.hour = day_hour[1];
-          return el;
-        });
-        _this.metData = res.data;
-      })["catch"](function (err) {
-        console.log(err);
-      });
-    },
-    sendOutMetData: function sendOutMetData() {
-      console.log(metData);
-    }
-  }
+  methods: {}
 });
 
 /***/ }),
@@ -38299,6 +38285,38 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/home.vue?vue&type=template&id=fa6affac&":
+/*!*******************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/home.vue?vue&type=template&id=fa6affac& ***!
+  \*******************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("router-link", { attrs: { to: "calendar" } }, [
+        _c("p", [_vm._v("Calendar")])
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/metdatalist.vue?vue&type=template&id=33cad629&":
 /*!**************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/metdatalist.vue?vue&type=template&id=33cad629& ***!
@@ -53602,6 +53620,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./routes */ "./resources/js/routes.js");
+
 
 
 
@@ -53609,16 +53629,33 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
+var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
+  mode: 'history',
+  routes: _routes__WEBPACK_IMPORTED_MODULE_2__["routes"]
+});
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('metdatalist', __webpack_require__(/*! ./components/metdatalist.vue */ "./resources/js/components/metdatalist.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('calendar', __webpack_require__(/*! ./components/calendar.vue */ "./resources/js/components/calendar.vue")["default"]);
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('home', __webpack_require__(/*! ./components/home.vue */ "./resources/js/components/home.vue")["default"]);
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
-  el: '#app'
+  el: '#app',
+  router: router,
+  methods: {
+    fetchMetOceanData: function fetchMetOceanData() {
+      var _this = this;
+
+      axios.get('get-metocean-data').then(function (res) {
+        var newMap = res.data.map(function (el) {
+          var day_hour = el.Time.split(' ');
+          el.day = day_hour[0];
+          el.hour = day_hour[1];
+          return el;
+        });
+        _this.metData = res.data;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -53755,6 +53792,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/home.vue":
+/*!******************************************!*\
+  !*** ./resources/js/components/home.vue ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _home_vue_vue_type_template_id_fa6affac___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./home.vue?vue&type=template&id=fa6affac& */ "./resources/js/components/home.vue?vue&type=template&id=fa6affac&");
+/* harmony import */ var _home_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./home.vue?vue&type=script&lang=js& */ "./resources/js/components/home.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _home_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _home_vue_vue_type_template_id_fa6affac___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _home_vue_vue_type_template_id_fa6affac___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/home.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/home.vue?vue&type=script&lang=js&":
+/*!*******************************************************************!*\
+  !*** ./resources/js/components/home.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./home.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/home.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/home.vue?vue&type=template&id=fa6affac&":
+/*!*************************************************************************!*\
+  !*** ./resources/js/components/home.vue?vue&type=template&id=fa6affac& ***!
+  \*************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_template_id_fa6affac___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./home.vue?vue&type=template&id=fa6affac& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/home.vue?vue&type=template&id=fa6affac&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_template_id_fa6affac___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_template_id_fa6affac___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/metdatalist.vue":
 /*!*************************************************!*\
   !*** ./resources/js/components/metdatalist.vue ***!
@@ -53839,6 +53945,61 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_metdatalist_vue_vue_type_template_id_33cad629___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/routes.js":
+/*!********************************!*\
+  !*** ./resources/js/routes.js ***!
+  \********************************/
+/*! exports provided: routes */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "routes", function() { return routes; });
+/* harmony import */ var _components_calendar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/calendar */ "./resources/js/components/calendar.vue");
+/* harmony import */ var _components_metdatalist__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/metdatalist */ "./resources/js/components/metdatalist.vue");
+
+
+var routes = [{
+  path: '/calendar',
+  component: _components_calendar__WEBPACK_IMPORTED_MODULE_0__["default"],
+  name: 'calendar'
+}, {
+  path: '/metdatalist',
+  component: _components_metdatalist__WEBPACK_IMPORTED_MODULE_1__["default"],
+  name: 'metdatalist'
+}];
+
+/***/ }),
+
+/***/ "./resources/js/shared.js":
+/*!********************************!*\
+  !*** ./resources/js/shared.js ***!
+  \********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  fetchMetOceanData: function fetchMetOceanData() {
+    var _this = this;
+
+    axios.get('get-metocean-data').then(function (res) {
+      var newMap = res.data.map(function (el) {
+        var day_hour = el.Time.split(" ");
+        el.day = day_hour[0];
+        el.hour = day_hour[1];
+        return el;
+      });
+      _this.metData = res.data;
+    })["catch"](function (err) {
+      console.log(err);
+    });
+  }
+});
 
 /***/ }),
 

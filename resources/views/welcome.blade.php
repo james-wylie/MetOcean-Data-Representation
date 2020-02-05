@@ -65,7 +65,8 @@
     </head>
     <body>
        <div id="app">
-            <metdatalist></metdatalist>
+            <home></home>
+            <!-- <routerview></routerview> -->
             Hello
        </div>
 

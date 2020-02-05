@@ -17,5 +17,6 @@ class MetOceanDataController extends Controller
     public function show()
     {
         $particularHour = MetOceanData::where('id', $productId)->first();
+        // Not sure what this will show?? Maybe can just take all the data as is??
     }
 }
