@@ -1,8 +1,15 @@
 <template>
     <div class="container">
         <div class="row justify-content-center">
-        
+           
+           <div v-for="(metDataEntry, index) in metData" :key="metDataEntry.id">
+           <p> {{metData.lev}}
+            {{metData.hs}}
+            {{metData.hx}}
+            {{metData.tp}}
+            {{metData.tm01}} </p>
         </div>
+    </div>
     </div>
 </template>
 
@@ -58,12 +65,13 @@
             }
         },
         created(){
-            this.featchMetOceanData()
+            this.fetchMetOceanData()
         }, 
         methods: {
             fetchMetOceanData() {
-                axios.get('getMetOceanData')
+                axios.get('get-metocean-data')
                     .then(res => {
+                        console.log(res.data.data)
                         this.metData = res.data.data
                     })
                     .catch(err => {

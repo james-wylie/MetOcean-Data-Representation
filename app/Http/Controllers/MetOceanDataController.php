@@ -9,7 +9,7 @@ class MetOceanDataController extends Controller
 {
     public function index()
     {
-    $OceanData = MetOceanData::latest()->paginate(25);
+    $OceanData = MetOceanData::paginate(25);
     
     return $OceanData;
     }
