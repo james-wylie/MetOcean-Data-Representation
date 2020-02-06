@@ -159,7 +159,10 @@
             this.fetchMetOceanData()
         }, 
         methods: {
-            
+            collectDataByDate(date){
+                let dateDate = this.metData.map(el => el.day === date)
+                returngit 
+            } 
         }
     }
 </script>

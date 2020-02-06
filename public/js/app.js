@@ -2387,7 +2387,14 @@ __webpack_require__.r(__webpack_exports__);
     this.fetchMetOceanData = _shared__WEBPACK_IMPORTED_MODULE_0__["default"].fetchMetOceanData;
     this.fetchMetOceanData();
   },
-  methods: {}
+  methods: {
+    collectDataByDate: function collectDataByDate(date) {
+      var dateDate = this.metData.map(function (el) {
+        return el.day === date;
+      });
+      returngit;
+    }
+  }
 });
 
 /***/ }),
