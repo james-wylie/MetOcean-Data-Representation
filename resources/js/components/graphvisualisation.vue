@@ -1,14 +1,14 @@
 <template>
     <div class="bg-light textsize">
-      <h1>MetData</h1>
+    
     <div style="font-size: 14px;" class="row">
     <div class="col-7">
-    <svg class="svg"></svg>
+    <svg class="svg mt-5 pt-5"></svg>
     </div>
     
     <div class="col-2 mt-5 pt-5">
-       <h3 class="pl-4"> Please select below: </h3>
-    <ul class="pt-2">
+       <h4 class="pl-4"> Please select your data: </h4>
+    <ul class="pt-5">
       <a href="#"><li @click="changeData('id')" class="primary m-3">ID</li></a>
       <a href="#"><li @click="changeData('lev')" class="primary m-3">Elevation</li></a>
       <a href="#"><li @click="changeData('hs')" class="primary m-3">Significant Wave Height</li></a>
@@ -287,9 +287,6 @@ export default {
 
 <style>
 
-  .textsize{
-    font: 20px sans-serif;
-  }
 
 	.axis {
 	  font: 20px sans-serif;
@@ -298,13 +295,6 @@ export default {
   .label, .bar {
 	  font: 20px sans-serif;
 
-  }
-
-  h1{
-    position: fixed;
-    top: 3%;
-    left: 3%;
-    color: darkblue;
   }
 
   .title {
