@@ -2024,18 +2024,81 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  // mounted(){
+  //   this.changeData(option)      
+  // },
   data: function data() {
     var _metDataEntry;
 
     return {
       chart: null,
-      keys: {},
-      chosenMetData: [],
+      fullTitles: {},
+      keys: [],
       metData: [],
+      selectedOption: 'dpm',
       metDataEntry: (_metDataEntry = {
         Time: '',
         id: '',
@@ -2071,72 +2134,59 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   watch: {
     metData: function metData(val) {
       if (this.chart != null) this.chart.remove();
-      console.log(this.keys);
-      this.renderChart(this.metData, this.keys[1]);
+      this.renderChart(val, this.keys.id);
     }
   },
   created: function created() {
     this.fetchMetOceanData = _shared__WEBPACK_IMPORTED_MODULE_2__["default"].fetchMetOceanData;
     this.fetchMetOceanData();
+    this.fullTitles = _shared__WEBPACK_IMPORTED_MODULE_2__["default"].fullTitles;
     this.getKeys();
   },
   methods: {
-    refreshMetData: function refreshMetData(val, key) {
+    changeData: function changeData(option) {
+      this.selectedOption = option;
+      d3__WEBPACK_IMPORTED_MODULE_0__["selectAll"](".label").text('');
       if (this.chart != null) this.chart.remove();
-      this.renderChart(this.metData, val);
+      this.renderChart(this.metData, option);
     },
     getKeys: function getKeys() {
       this.keys = Object.keys(this.metDataEntry);
     },
-    renderChart: function renderChart(data, key) {
-      var margin = 60;
-      var svg_width = 1600;
+    renderChart: function renderChart(data) {
+      var option = this.selectedOption;
+      var margin = 100;
+      var svg_width = 1200;
       var svg_height = 800;
-      var chart_width = 1600 - 2 * margin;
+      var chart_width = 1200 - 2 * margin;
       var chart_height = 800 - 2 * margin;
-      var svg = d3__WEBPACK_IMPORTED_MODULE_0__["select"]("svg").attr("width", svg_width).attr("height", svg_height); // Setting the Axes
+      var svg = d3__WEBPACK_IMPORTED_MODULE_0__["select"]("svg").attr("width", svg_width).attr("height", svg_height); // Setting up Axes
 
       this.chart = svg.append("g").attr("transform", "translate(".concat(margin, ", ").concat(margin, ")"));
-      var yScale = d3__WEBPACK_IMPORTED_MODULE_0__["scaleLinear"]().range([chart_height, 0]).domain([0, lodash__WEBPACK_IMPORTED_MODULE_1___default.a.maxBy(data, key).dpm]); // Above this domain is where it is at!
+      var yScale = d3__WEBPACK_IMPORTED_MODULE_0__["scaleLinear"]().range([chart_height, 0]).domain([0, lodash__WEBPACK_IMPORTED_MODULE_1___default.a.maxBy(data, "".concat([option]))[option]]); // Above this domain is where it is at!
 
-      this.chart.append("g").style("font", "14px sans-serif").call(d3__WEBPACK_IMPORTED_MODULE_0__["axisLeft"](yScale).ticks(lodash__WEBPACK_IMPORTED_MODULE_1___default.a.maxBy(data, key).dpm));
+      this.chart.append("g").style("font", "14px sans-serif").call(d3__WEBPACK_IMPORTED_MODULE_0__["axisLeft"](yScale).ticks(5));
       var xScale = d3__WEBPACK_IMPORTED_MODULE_0__["scaleBand"]().range([0, chart_width]).domain(data.map(function (s) {
         return s.hour;
-      })).padding(0.2);
-      this.chart.append("g").style("font", "14px sans-serif").attr("transform", "translate(0, ".concat(chart_height, ")")).call(d3__WEBPACK_IMPORTED_MODULE_0__["axisBottom"](xScale)); // BARS THEMSELVES          
+      })).padding(0.5);
+      this.chart.append("g").style("font", "14px sans-serif").attr("transform", "translate(0, ".concat(chart_height, ")")).call(d3__WEBPACK_IMPORTED_MODULE_0__["axisBottom"](xScale).ticks(12)); // BARS THEMSELVES          
 
-      var barGroups = this.chart.selectAll("rect").data(data).enter();
+      var barGroups = this.chart.selectAll("rect").data(data).enter().append('g');
       barGroups.append("rect").attr("class", "bar").attr("x", function (g) {
         return xScale(g.hour);
       }).attr("y", function (g) {
-        return yScale(g.dpm);
+        return yScale(g[option]);
       }).attr("height", function (g) {
-        return chart_height - yScale(g.dpm);
-      }).attr("width", xScale.bandwidth()).attr("width", xScale.bandwidth()); // Add numbers to each Bar on the graph. 
-      // .append("text")
-      // .attr("class", "value")
-      // .attr("x", a => xScale(a.hour) + xScale.bandwidth() / 2)
-      // .attr("y", a => yScale(a.hour) - 20)
-      // .attr("text-anchor", "middle")
-      // .text((a, idx) => {
-      //   return idx !== i ? "" : `${a.hour} Facts! `;  
-      //     })
-      //   .attr("width", xScale.bandwidth())
-      // .on("mouseleave", function() {
-      //     d3.selectAll(".issues").attr("opacity", 1);
-      //     d3.select(this)
-      //       .transition()
-      //       .duration(300)
-      //       .attr("opacity", 1)
-      //       .attr("x", a => xScale(a.hour))
-      //       .attr("width", xScale.bandwidth());
-      //     svg.selectAll(".value").remove();
-      //     });
-      // Setting up the labels
-
-      svg.append('text').attr('class', 'label').attr('x', -(chart_height / 2) - margin).attr('y', margin / 2.4).attr('transform', 'rotate(-90)').attr('text-anchor', 'middle').text('Key');
+        return chart_height - yScale(g[option]);
+      }).attr("width", xScale.bandwidth()).attr("width", xScale.bandwidth()).on("mouseover", function (d) {
+        console.log(d[option]);
+        d3__WEBPACK_IMPORTED_MODULE_0__["select"]('.title').text("Value: ".concat(d[option]));
+      }).on("mouseout", function (d) {
+        d3__WEBPACK_IMPORTED_MODULE_0__["select"]('.title').text('Hover to see the corresponding value.');
+      });
+      svg.append('text').attr('class', 'label').attr('x', -(chart_height / 2) - margin).attr('y', margin / 2.4).attr('transform', 'rotate(-90)').attr('text-anchor', 'middle').text(this.fullTitles[option]);
       svg.append('text').attr('class', 'label').attr('x', chart_width / 2 + margin).attr('y', chart_height + margin * 1.7).attr('text-anchor', 'middle').text('Time of Day');
-      svg.append('text').attr('class', 'title').attr('x', chart_width / 2 + margin).attr('y', 40).attr('text-anchor', 'middle').text('MetData');
+      svg.append('text').attr('class', 'title').attr('x', chart_width / 2 + margin).attr('y', 40).attr('text-anchor', 'middle'); // .text('Hover to see the corresponding value.')    
     }
   }
 });
@@ -2179,8 +2229,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../shared */ "./resources/js/shared.js");
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -2288,11 +2336,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     console.log('Component mounted.');
   },
   data: function data() {
-    var _metDataEntry;
-
     return {
       metData: [],
-      metDataEntry: (_metDataEntry = {
+      metDataEntry: {
         Time: '',
         id: '',
         lev: '',
@@ -2320,8 +2366,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         hs_fig: '',
         wsp: '',
         gst: '',
-        wd: ''
-      }, _defineProperty(_metDataEntry, "wsp", ''), _defineProperty(_metDataEntry, "wsp50", ''), _defineProperty(_metDataEntry, "wsp80", ''), _defineProperty(_metDataEntry, "precip", ''), _defineProperty(_metDataEntry, "tmp", ''), _defineProperty(_metDataEntry, "rh", ''), _defineProperty(_metDataEntry, "vis", ''), _defineProperty(_metDataEntry, "cld", ''), _defineProperty(_metDataEntry, "cb", ''), _defineProperty(_metDataEntry, "csp0", ''), _defineProperty(_metDataEntry, "cd0", ''), _defineProperty(_metDataEntry, "ss", ''), _defineProperty(_metDataEntry, "sst", ''), _metDataEntry)
+        wd: '',
+        wsp100: '',
+        wsp50: '',
+        wsp80: '',
+        precip: '',
+        tmp: '',
+        rh: '',
+        vis: '',
+        cld: '',
+        cb: '',
+        csp0: '',
+        cd0: '',
+        ss: '',
+        sst: ''
+      }
     };
   },
   created: function created() {
@@ -6895,7 +6954,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.textsize{\n    font: 20px sans-serif;\n}\n.axis {\n\t  font: 20px sans-serif;\n}\n.label, .bar {\n\t  font: 20px sans-serif;\n}\n.axis path,\n\t.axis line {\n\t  fill: none;\n\t  stroke: #000;\n\t  shape-rendering: crispEdges;\n}\n\n\t", ""]);
+exports.push([module.i, "\n.textsize{\n    font: 20px sans-serif;\n}\n.axis {\n\t  font: 20px sans-serif;\n}\n.label, .bar {\n\t  font: 20px sans-serif;\n}\nh1{\n    position: fixed;\n    top: 3%;\n    left: 3%;\n    color: darkblue;\n}\n.title {\n    font-size: 20px;\n}\nsvg{\n    position: fixed;\n    top: 3%;\n    left: 1%;\n}\nul, li {\n    list-style: none;\n}\n.axis path,\n\t.axis line {\n\t  fill: none;\n\t  stroke: #000;\n\t  shape-rendering: crispEdges;\n}\n\n", ""]);
 
 // exports
 
@@ -67717,6 +67776,238 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ChangeDataButtons.vue?vue&type=template&id=2024dc4c&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ChangeDataButtons.vue?vue&type=template&id=2024dc4c& ***!
+  \********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("form", [
+    _c(
+      "div",
+      {
+        staticClass: "btn btn-primary",
+        on: {
+          click: function($event) {
+            return _vm.changeData("id")
+          }
+        }
+      },
+      [_vm._v("ID")]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "btn btn-primary",
+        on: {
+          click: function($event) {
+            return _vm.changeData("lev")
+          }
+        }
+      },
+      [_vm._v("Elevation")]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "btn btn-primary",
+        on: {
+          click: function($event) {
+            return _vm.changeData("hs")
+          }
+        }
+      },
+      [_vm._v("Significant Wave Height")]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "btn btn-primary",
+        on: {
+          click: function($event) {
+            return _vm.changeData("hx")
+          }
+        }
+      },
+      [_vm._v("Spectral estimate of maximum wave")]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "btn btn-primary",
+        on: {
+          click: function($event) {
+            return _vm.changeData("tp")
+          }
+        }
+      },
+      [_vm._v("Peak Period")]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "btn btn-primary",
+        on: {
+          click: function($event) {
+            return _vm.changeData("tm01")
+          }
+        }
+      },
+      [_vm._v("Mean Wave period")]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "btn btn-primary",
+        on: {
+          click: function($event) {
+            return _vm.changeData("tm02")
+          }
+        }
+      },
+      [_vm._v("Mean Wave period")]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "btn btn-primary",
+        on: {
+          click: function($event) {
+            return _vm.changeData("dp")
+          }
+        }
+      },
+      [_vm._v("Peak wave direction (from)")]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "btn btn-primary",
+        on: {
+          click: function($event) {
+            return _vm.changeData("dpm")
+          }
+        }
+      },
+      [_vm._v("Peak wave direction (from)")]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "btn btn-primary",
+        on: {
+          click: function($event) {
+            return _vm.changeData("hs_sw1")
+          }
+        }
+      },
+      [_vm._v("Peak wave direction (from)")]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "btn btn-primary",
+        on: {
+          click: function($event) {
+            return _vm.changeData("hs_sw8")
+          }
+        }
+      },
+      [_vm._v("Peak wave direction (from)")]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "btn btn-primary",
+        on: {
+          click: function($event) {
+            return _vm.changeData("tp_sw1")
+          }
+        }
+      },
+      [_vm._v("Peak wave direction (from)")]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "btn btn-primary",
+        on: {
+          click: function($event) {
+            return _vm.changeData("tp_sw8")
+          }
+        }
+      },
+      [_vm._v("Peak wave direction (from)")]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "btn btn-primary",
+        on: {
+          click: function($event) {
+            return _vm.changeData("dpm_sw8")
+          }
+        }
+      },
+      [_vm._v("Peak wave direction (from)")]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "btn btn-primary",
+        on: {
+          click: function($event) {
+            return _vm.changeData("dpm_sw8")
+          }
+        }
+      },
+      [_vm._v("Peak wave direction (from)")]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "btn btn-primary",
+        on: {
+          click: function($event) {
+            return _vm.changeData("dp")
+          }
+        }
+      },
+      [_vm._v("Peak wave direction (from)")]
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/calendar.vue?vue&type=template&id=094224ee&":
 /*!***********************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/calendar.vue?vue&type=template&id=094224ee& ***!
@@ -67795,58 +68086,624 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "textsize" }, [
-    _c("svg"),
+  return _c("div", { staticClass: "bg-light textsize" }, [
+    _c("h1", [_vm._v("MetData")]),
     _vm._v(" "),
-    _c("form", [
-      _c(
-        "div",
-        {
-          staticClass: "btn btn-primary",
-          on: {
-            click: function($event) {
-              return this.renderChart(this.metData, "id")
-            }
-          }
-        },
-        [_vm._v("ID")]
-      ),
+    _c("div", { staticClass: "row", staticStyle: { "font-size": "14px" } }, [
+      _c("div", { staticClass: "col-7" }, [_c("svg", { staticClass: "svg" })]),
       _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "btn btn-primary",
-          on: {
-            click: function($event) {
-              return this.renderChart(this.metData, "lev")
-            }
-          }
-        },
-        [_vm._v("Elevation")]
-      ),
-      _vm._v(" "),
-      _c("button", { staticClass: "btn btn-primary" }, [
-        _vm._v("Significant Wave Height")
+      _c("div", { staticClass: "col-2 mt-5 pt-5" }, [
+        _c("h3", { staticClass: "pl-4" }, [_vm._v(" Please select below: ")]),
+        _vm._v(" "),
+        _c("ul", { staticClass: "pt-2" }, [
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("id")
+                  }
+                }
+              },
+              [_vm._v("ID")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("lev")
+                  }
+                }
+              },
+              [_vm._v("Elevation")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("hs")
+                  }
+                }
+              },
+              [_vm._v("Significant Wave Height")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("hx")
+                  }
+                }
+              },
+              [_vm._v("Spectral estimate of maximum wave")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("tp")
+                  }
+                }
+              },
+              [_vm._v("Peak Period")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary  m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("tm01")
+                  }
+                }
+              },
+              [_vm._v("Mean Wave period")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary  m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("tm02")
+                  }
+                }
+              },
+              [_vm._v("Mean Wave period")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("dp")
+                  }
+                }
+              },
+              [_vm._v("Peak wave direction (from)")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("dpm")
+                  }
+                }
+              },
+              [_vm._v("Mean Direction at Peak Frequency")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("hs_sw1")
+                  }
+                }
+              },
+              [_vm._v("Significant wave height of primary swell")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("hs_sw8")
+                  }
+                }
+              },
+              [_vm._v("Significant wave height of swell (> 8s)")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("tp_sw1")
+                  }
+                }
+              },
+              [_vm._v("Peak period of Primary Swell")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("tp_sw8")
+                  }
+                }
+              },
+              [_vm._v("Peak period of swell (>8s)")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("dpm_sw8")
+                  }
+                }
+              },
+              [_vm._v("Mean direction at swell peak frequency (from)")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("dpm_sw1")
+                  }
+                }
+              },
+              [_vm._v("Mean direction of primary swell peak frequency")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("hs_sea8")
+                  }
+                }
+              },
+              [_vm._v("Significant wave height of sea")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("hs_sea")
+                  }
+                }
+              },
+              [_vm._v("Significant wave height of wind sea")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("tp_sea8")
+                  }
+                }
+              },
+              [_vm._v("Peak period of sea")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("tp_sea")
+                  }
+                }
+              },
+              [_vm._v("Peak period of wind sea")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("tm_sea")
+                  }
+                }
+              },
+              [_vm._v("Peak period of wind sea")]
+            )
+          ])
+        ])
       ]),
       _vm._v(" "),
-      _c("button", { staticClass: "btn btn-primary" }, [
-        _vm._v("Spectral estimate of maximum wave")
-      ]),
-      _vm._v(" "),
-      _c("button", { staticClass: "btn btn-primary" }, [_vm._v("Peak Period")]),
-      _vm._v(" "),
-      _c("button", { staticClass: "btn btn-primary" }, [
-        _vm._v("Mean Wave period")
-      ]),
-      _vm._v(" "),
-      _c("button", { staticClass: "btn btn-primary" }, [
-        _vm._v("Mean Wave period")
-      ]),
-      _vm._v(" "),
-      _c("button", { staticClass: "btn btn-primary" }, [
-        _vm._v("Peak wave direction (from)")
+      _c("div", { staticClass: "col-2 pt-5 mt-5" }, [
+        _c("ul", { staticClass: "pt-5" }, [
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("dpm_sea8")
+                  }
+                }
+              },
+              [_vm._v("Mean direction at sea peak freqeuncy (from)")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("dpm_sea")
+                  }
+                }
+              },
+              [_vm._v("Mean direction at wind sea peak frequency (from)")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("hs_ig")
+                  }
+                }
+              },
+              [_vm._v("Infragravity significant wave height")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("hs_fig")
+                  }
+                }
+              },
+              [_vm._v("Far infragravity wave height")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("wsp")
+                  }
+                }
+              },
+              [_vm._v("Mean wind speed at 10m")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("gst")
+                  }
+                }
+              },
+              [_vm._v("Typical Gust speed")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("wd")
+                  }
+                }
+              },
+              [_vm._v("Wind direction (from)")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("wsp100")
+                  }
+                }
+              },
+              [_vm._v("Mean wind speed at 100m")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("wsp50")
+                  }
+                }
+              },
+              [_vm._v("Mean wind speed at 50m")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("wsp80")
+                  }
+                }
+              },
+              [_vm._v("Mean wind speed at 80m")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("precip")
+                  }
+                }
+              },
+              [_vm._v("Precipitation")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("tmp")
+                  }
+                }
+              },
+              [_vm._v("Air temperature")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("rh")
+                  }
+                }
+              },
+              [_vm._v("Relative Humidity")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("vis")
+                  }
+                }
+              },
+              [_vm._v("Visibility")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("cld")
+                  }
+                }
+              },
+              [_vm._v("Cloud Cover")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("cb")
+                  }
+                }
+              },
+              [_vm._v("Cloud Base")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("csp0")
+                  }
+                }
+              },
+              [_vm._v("Surface Current Speed")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("cd0")
+                  }
+                }
+              },
+              [_vm._v("Surface Current Speed")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("ss")
+                  }
+                }
+              },
+              [_vm._v("Storm Surge elevation")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("a", [
+            _c(
+              "li",
+              {
+                staticClass: " -primary m-3",
+                on: {
+                  click: function($event) {
+                    return _vm.changeData("sst")
+                  }
+                }
+              },
+              [_vm._v("Sea Surface Temperature")]
+            )
+          ])
+        ])
       ])
-    ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" })
   ])
 }
 var staticRenderFns = []
@@ -83212,6 +84069,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('metdatalist', __webpack_re
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('calendar', __webpack_require__(/*! ./components/calendar.vue */ "./resources/js/components/calendar.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('graphVisualization', __webpack_require__(/*! ./components/d3.vue */ "./resources/js/components/d3.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('home', __webpack_require__(/*! ./components/home.vue */ "./resources/js/components/home.vue")["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('changedatabuttons', __webpack_require__(/*! ./components/ChangeDataButtons.vue */ "./resources/js/components/ChangeDataButtons.vue")["default"]);
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app',
   router: router
@@ -83227,11 +84085,6 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
 /***/ (function(module, exports, __webpack_require__) {
 
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/**
- * We'll load jQuery and the Bootstrap jQuery plugin which provides support
- * for JavaScript based Bootstrap features such as modals and tabs. This
- * code may be modified to fit the specific needs of your application.
- */
 
 try {
   window.Popper = __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js")["default"];
@@ -83239,28 +84092,62 @@ try {
 
   __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.js");
 } catch (e) {}
-/**
- * We'll load the axios HTTP library which allows us to easily issue requests
- * to our Laravel back-end. This library automatically handles sending the
- * CSRF token as a header based on the value of the "XSRF" token cookie.
- */
-
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-/**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
-// import Echo from 'laravel-echo';
-// window.Pusher = require('pusher-js');
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: process.env.MIX_PUSHER_APP_KEY,
-//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-//     encrypted: true
-// });
+
+/***/ }),
+
+/***/ "./resources/js/components/ChangeDataButtons.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/ChangeDataButtons.vue ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ChangeDataButtons_vue_vue_type_template_id_2024dc4c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ChangeDataButtons.vue?vue&type=template&id=2024dc4c& */ "./resources/js/components/ChangeDataButtons.vue?vue&type=template&id=2024dc4c&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+var script = {}
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  script,
+  _ChangeDataButtons_vue_vue_type_template_id_2024dc4c___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ChangeDataButtons_vue_vue_type_template_id_2024dc4c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/ChangeDataButtons.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/ChangeDataButtons.vue?vue&type=template&id=2024dc4c&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/ChangeDataButtons.vue?vue&type=template&id=2024dc4c& ***!
+  \**************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ChangeDataButtons_vue_vue_type_template_id_2024dc4c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./ChangeDataButtons.vue?vue&type=template&id=2024dc4c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ChangeDataButtons.vue?vue&type=template&id=2024dc4c&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ChangeDataButtons_vue_vue_type_template_id_2024dc4c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ChangeDataButtons_vue_vue_type_template_id_2024dc4c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 
@@ -83355,15 +84242,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!****************************************!*\
   !*** ./resources/js/components/d3.vue ***!
   \****************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _d3_vue_vue_type_template_id_785e5f4c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./d3.vue?vue&type=template&id=785e5f4c& */ "./resources/js/components/d3.vue?vue&type=template&id=785e5f4c&");
 /* harmony import */ var _d3_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./d3.vue?vue&type=script&lang=js& */ "./resources/js/components/d3.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _d3_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _d3_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _d3_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./d3.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/d3.vue?vue&type=style&index=0&lang=css&");
+/* empty/unused harmony star reexport *//* harmony import */ var _d3_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./d3.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/d3.vue?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -83395,7 +84281,7 @@ component.options.__file = "resources/js/components/d3.vue"
 /*!*****************************************************************!*\
   !*** ./resources/js/components/d3.vue?vue&type=script&lang=js& ***!
   \*****************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -83650,13 +84536,58 @@ __webpack_require__.r(__webpack_exports__);
       var newMap = res.data.map(function (el) {
         var day_hour = el.Time.split(" ");
         el.day = day_hour[0];
-        el.hour = day_hour[1];
+        var hour_hour = day_hour[1].split(":");
+        el.hour = hour_hour[0];
         return el;
       });
       _this.metData = res.data;
+      console.log(res.data);
     })["catch"](function (err) {
       console.log(err);
     });
+  },
+  fullTitles: {
+    Time: 'Date',
+    id: 'ID',
+    lev: 'Elevation',
+    hs: 'Significant Wave Height',
+    hx: 'Spectral estimate of maximum wave',
+    tp: 'Peak Period',
+    tm01: 'Mean Wave period',
+    tm02: 'Mean wave period',
+    dp: 'Peak wave direction (from)',
+    dpm: 'Mean direction at peak frequency (from)',
+    hs_sw1: 'Significant wave height of primary swell',
+    hs_sw8: 'Significant wave height of swell (> 8s)',
+    tp_sw1: 'Peak period of Primary Swell',
+    tp_sw8: 'Peak period of swell (>8s)',
+    dpm_sw8: 'Mean direction at swell peak frequency (from)',
+    dpm_sw1: 'Mean direction of primary swell peak frequency',
+    hs_sea8: 'Significant wave height of sea',
+    hs_sea: 'Significant wave height of wind sea',
+    tp_sea8: 'Peak period of sea',
+    tp_sea: 'Peak period of wind sea',
+    tm_sea: 'Mean period of wind sea',
+    dpm_sea8: 'Mean direction at sea peak freqeuncy (from)',
+    dpm_sea: 'Mean direction at wind sea peak frequency (from)',
+    hs_ig: 'Infragravity significant wave height',
+    hs_fig: 'Far infragravity wave height',
+    wsp: 'Mean wind speed at 10m',
+    gst: 'Typical Gust speed',
+    wd: 'Wind direction (from)',
+    wsp100: 'Mean wind speed at 100m',
+    wsp50: 'Mean wind speed at 50m',
+    wsp80: 'Mean wind speed at 80m',
+    precip: 'Precipitation',
+    tmp: 'Air temperature',
+    rh: 'Relative Humidity',
+    vis: 'Visibility',
+    cld: 'Cloud Cover',
+    cb: 'Cloud Base',
+    csp0: 'Surface Current Speed',
+    cd0: 'Surface Current Direction',
+    ss: 'Storm Surge elevation',
+    sst: 'Sea Surface Temperature'
   }
 });
 
