@@ -2094,6 +2094,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 
@@ -2198,8 +2201,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }).attr("y", function (g) {
         return yScale(g[option]);
       }).attr("height", function (g) {
-        return chart_height - yScale(g[option]);
-      }).attr("width", xScale.bandwidth()).attr("width", xScale.bandwidth()).on("mouseover", function (d) {
+        return 600 - yScale(g[option]);
+      }).attr("width", xScale.bandwidth()).attr("width", xScale.bandwidth()).attr("fill", 'blue').attr("fill-opacity", "0.4").on("mouseover", function (d) {
         console.log(d[option]);
         d3__WEBPACK_IMPORTED_MODULE_0__["select"]('.title').text("Value: ".concat(d[option]));
       }).on("mouseout", function (d) {
@@ -68133,7 +68136,7 @@ var render = function() {
             _c(
               "li",
               {
-                staticClass: " -primary m-3",
+                staticClass: "primary m-3",
                 on: {
                   click: function($event) {
                     return _vm.changeData("id")
@@ -68148,7 +68151,7 @@ var render = function() {
             _c(
               "li",
               {
-                staticClass: " -primary m-3",
+                staticClass: "primary m-3",
                 on: {
                   click: function($event) {
                     return _vm.changeData("lev")
@@ -68163,7 +68166,7 @@ var render = function() {
             _c(
               "li",
               {
-                staticClass: " -primary m-3",
+                staticClass: "primary m-3",
                 on: {
                   click: function($event) {
                     return _vm.changeData("hs")
@@ -68178,7 +68181,7 @@ var render = function() {
             _c(
               "li",
               {
-                staticClass: " -primary m-3",
+                staticClass: "primary m-3",
                 on: {
                   click: function($event) {
                     return _vm.changeData("hx")
@@ -68193,7 +68196,7 @@ var render = function() {
             _c(
               "li",
               {
-                staticClass: " -primary m-3",
+                staticClass: "primary m-3",
                 on: {
                   click: function($event) {
                     return _vm.changeData("tp")
@@ -68208,7 +68211,7 @@ var render = function() {
             _c(
               "li",
               {
-                staticClass: " -primary  m-3",
+                staticClass: "primary  m-3",
                 on: {
                   click: function($event) {
                     return _vm.changeData("tm01")
@@ -68223,7 +68226,7 @@ var render = function() {
             _c(
               "li",
               {
-                staticClass: " -primary  m-3",
+                staticClass: "primary  m-3",
                 on: {
                   click: function($event) {
                     return _vm.changeData("tm02")
@@ -68238,7 +68241,7 @@ var render = function() {
             _c(
               "li",
               {
-                staticClass: " -primary m-3",
+                staticClass: "primary m-3",
                 on: {
                   click: function($event) {
                     return _vm.changeData("dp")
@@ -68253,7 +68256,7 @@ var render = function() {
             _c(
               "li",
               {
-                staticClass: " -primary m-3",
+                staticClass: "primary m-3",
                 on: {
                   click: function($event) {
                     return _vm.changeData("dpm")
@@ -68268,7 +68271,7 @@ var render = function() {
             _c(
               "li",
               {
-                staticClass: " -primary m-3",
+                staticClass: "primary m-3",
                 on: {
                   click: function($event) {
                     return _vm.changeData("hs_sw1")
@@ -68283,7 +68286,7 @@ var render = function() {
             _c(
               "li",
               {
-                staticClass: " -primary m-3",
+                staticClass: "primary m-3",
                 on: {
                   click: function($event) {
                     return _vm.changeData("hs_sw8")
@@ -68298,7 +68301,7 @@ var render = function() {
             _c(
               "li",
               {
-                staticClass: " -primary m-3",
+                staticClass: "primary m-3",
                 on: {
                   click: function($event) {
                     return _vm.changeData("tp_sw1")
@@ -68313,7 +68316,7 @@ var render = function() {
             _c(
               "li",
               {
-                staticClass: " -primary m-3",
+                staticClass: "primary m-3",
                 on: {
                   click: function($event) {
                     return _vm.changeData("tp_sw8")
@@ -68328,7 +68331,7 @@ var render = function() {
             _c(
               "li",
               {
-                staticClass: " -primary m-3",
+                staticClass: "primary m-3",
                 on: {
                   click: function($event) {
                     return _vm.changeData("dpm_sw8")
@@ -68343,7 +68346,7 @@ var render = function() {
             _c(
               "li",
               {
-                staticClass: " -primary m-3",
+                staticClass: "primary m-3",
                 on: {
                   click: function($event) {
                     return _vm.changeData("dpm_sw1")
@@ -68358,7 +68361,7 @@ var render = function() {
             _c(
               "li",
               {
-                staticClass: " -primary m-3",
+                staticClass: "primary m-3",
                 on: {
                   click: function($event) {
                     return _vm.changeData("hs_sea8")
@@ -68373,7 +68376,7 @@ var render = function() {
             _c(
               "li",
               {
-                staticClass: " -primary m-3",
+                staticClass: "primary m-3",
                 on: {
                   click: function($event) {
                     return _vm.changeData("hs_sea")
@@ -68388,7 +68391,7 @@ var render = function() {
             _c(
               "li",
               {
-                staticClass: " -primary m-3",
+                staticClass: "primary m-3",
                 on: {
                   click: function($event) {
                     return _vm.changeData("tp_sea8")
@@ -68403,7 +68406,7 @@ var render = function() {
             _c(
               "li",
               {
-                staticClass: " -primary m-3",
+                staticClass: "primary m-3",
                 on: {
                   click: function($event) {
                     return _vm.changeData("tp_sea")
@@ -68418,14 +68421,14 @@ var render = function() {
             _c(
               "li",
               {
-                staticClass: " -primary m-3",
+                staticClass: "primary m-3",
                 on: {
                   click: function($event) {
                     return _vm.changeData("tm_sea")
                   }
                 }
               },
-              [_vm._v("Peak period of wind sea")]
+              [_vm._v("Mean period of wind sea")]
             )
           ])
         ])
@@ -68736,8 +68739,10 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-12" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-1" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-10" }, [
         _c(
           "div",
           {
@@ -68841,7 +68846,9 @@ var render = function() {
           },
           [_vm._v(" 2014-02-17")]
         )
-      ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-1" })
     ])
   ])
 }
@@ -84684,8 +84691,6 @@ __webpack_require__.r(__webpack_exports__);
         el.day = day_hour[0];
         var hour_hour = day_hour[1].split(":");
         el.hour = hour_hour[0];
-        var day_short = day_hour[0].split("-");
-        el.dayOnly = day_short[2];
         return el;
       });
       _this.metData = res.data; // console.log(res.data)
@@ -84696,45 +84701,45 @@ __webpack_require__.r(__webpack_exports__);
   fullTitles: {
     Time: 'Date',
     id: 'ID',
-    lev: 'Elevation',
-    hs: 'Significant Wave Height',
-    hx: 'Spectral estimate of maximum wave',
-    tp: 'Peak Period',
-    tm01: 'Mean Wave period',
-    tm02: 'Mean wave period',
-    dp: 'Peak wave direction (from)',
-    dpm: 'Mean direction at peak frequency (from)',
-    hs_sw1: 'Significant wave height of primary swell',
-    hs_sw8: 'Significant wave height of swell (> 8s)',
-    tp_sw1: 'Peak period of Primary Swell',
-    tp_sw8: 'Peak period of swell (>8s)',
-    dpm_sw8: 'Mean direction at swell peak frequency (from)',
-    dpm_sw1: 'Mean direction of primary swell peak frequency',
-    hs_sea8: 'Significant wave height of sea',
-    hs_sea: 'Significant wave height of wind sea',
-    tp_sea8: 'Peak period of sea',
-    tp_sea: 'Peak period of wind sea',
-    tm_sea: 'Mean period of wind sea',
-    dpm_sea8: 'Mean direction at sea peak freqeuncy (from)',
-    dpm_sea: 'Mean direction at wind sea peak frequency (from)',
-    hs_ig: 'Infragravity significant wave height',
-    hs_fig: 'Far infragravity wave height',
-    wsp: 'Mean wind speed at 10m',
-    gst: 'Typical Gust speed',
-    wd: 'Wind direction (from)',
-    wsp100: 'Mean wind speed at 100m',
-    wsp50: 'Mean wind speed at 50m',
-    wsp80: 'Mean wind speed at 80m',
-    precip: 'Precipitation',
-    tmp: 'Air temperature',
-    rh: 'Relative Humidity',
-    vis: 'Visibility',
-    cld: 'Cloud Cover',
-    cb: 'Cloud Base',
-    csp0: 'Surface Current Speed',
-    cd0: 'Surface Current Direction',
-    ss: 'Storm Surge elevation',
-    sst: 'Sea Surface Temperature'
+    lev: 'Elevation [m]',
+    hs: 'Significant Wave Height [m]',
+    hx: 'Spectral estimate of maximum wave [m]',
+    tp: 'Peak Period [s]',
+    tm01: 'Mean Wave period [s]',
+    tm02: 'Mean wave period (s]',
+    dp: 'Peak wave direction (from) [deg]',
+    dpm: 'Mean direction at peak frequency (from) [deg]',
+    hs_sw1: 'Significant wave height of primary swell [m]',
+    hs_sw8: 'Significant wave height of swell (> 8s) [m]',
+    tp_sw1: 'Peak period of Primary Swell [s]',
+    tp_sw8: 'Peak period of swell (>8s) [s]',
+    dpm_sw8: 'Mean direction at swell peak frequency (from) [deg]',
+    dpm_sw1: 'Mean direction of primary swell peak frequency [deg]',
+    hs_sea8: 'Significant wave height of sea [m]',
+    hs_sea: 'Significant wave height of wind sea [m]',
+    tp_sea8: 'Peak period of sea [s]',
+    tp_sea: 'Peak period of wind sea [s]',
+    tm_sea: 'Mean period of wind sea [s]',
+    dpm_sea8: 'Mean direction at sea peak freqeuncy (from) [deg]',
+    dpm_sea: 'Mean direction at wind sea peak frequency (from) [deg]',
+    hs_ig: 'Infragravity significant wave height [m]',
+    hs_fig: 'Far infragravity wave height [m]',
+    wsp: 'Mean wind speed at 10m [kts]',
+    gst: 'Typical Gust speed [kts]',
+    wd: 'Wind direction (from) [deg]',
+    wsp100: 'Mean wind speed at 100m [kts]',
+    wsp50: 'Mean wind speed at 50m [kts]',
+    wsp80: 'Mean wind speed at 80m [kts]',
+    precip: 'Precipitation [mm/hr]',
+    tmp: 'Air temperature [C]',
+    rh: 'Relative Humidity [%]',
+    vis: 'Visibility [km]',
+    cld: 'Cloud Cover [%]',
+    cb: 'Cloud Base [m]',
+    csp0: 'Surface Current Speed [kts]',
+    cd0: 'Surface Current Direction [deg]',
+    ss: 'Storm Surge elevation [m]',
+    sst: 'Sea Surface Temperature [C]'
   }
 });
 

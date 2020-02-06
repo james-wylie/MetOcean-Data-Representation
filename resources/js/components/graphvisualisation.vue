@@ -9,32 +9,32 @@
     <div class="col-2 mt-5 pt-5">
        <h3 class="pl-4"> Please select below: </h3>
     <ul class="pt-2">
-      <a href="#"><li @click="changeData('id')" class=" -primary m-3">ID</li></a>
-      <a href="#"><li @click="changeData('lev')" class=" -primary m-3">Elevation</li></a>
-      <a href="#"><li @click="changeData('hs')" class=" -primary m-3">Significant Wave Height</li></a>
-      <a href="#"><li @click="changeData('hx')" class=" -primary m-3">Spectral estimate of maximum wave</li></a>
-      <a href="#"><li @click="changeData('tp')" class=" -primary m-3">Peak Period</li></a>
+      <a href="#"><li @click="changeData('id')" class="primary m-3">ID</li></a>
+      <a href="#"><li @click="changeData('lev')" class="primary m-3">Elevation</li></a>
+      <a href="#"><li @click="changeData('hs')" class="primary m-3">Significant Wave Height</li></a>
+      <a href="#"><li @click="changeData('hx')" class="primary m-3">Spectral estimate of maximum wave</li></a>
+      <a href="#"><li @click="changeData('tp')" class="primary m-3">Peak Period</li></a>
       
     
-      <a href="#"><li @click="changeData('tm01')" class=" -primary  m-3">Mean Wave period</li></a>
-      <a href="#"><li @click="changeData('tm02')" class=" -primary  m-3">Mean Wave period</li></a>
-      <a href="#"><li @click="changeData('dp')" class=" -primary m-3">Peak wave direction (from)</li></a>
-      <a href="#"><li @click="changeData('dpm')" class=" -primary m-3">Mean Direction at Peak Frequency</li></a>
-      <a href="#"><li @click="changeData('hs_sw1')" class=" -primary m-3">Significant wave height of primary swell</li></a>
+      <a href="#"><li @click="changeData('tm01')" class="primary  m-3">Mean Wave period</li></a>
+      <a href="#"><li @click="changeData('tm02')" class="primary  m-3">Mean Wave period</li></a>
+      <a href="#"><li @click="changeData('dp')" class="primary m-3">Peak wave direction (from)</li></a>
+      <a href="#"><li @click="changeData('dpm')" class="primary m-3">Mean Direction at Peak Frequency</li></a>
+      <a href="#"><li @click="changeData('hs_sw1')" class="primary m-3">Significant wave height of primary swell</li></a>
       
     
-      <a href="#"><li @click="changeData('hs_sw8')" class=" -primary m-3">Significant wave height of swell (> 8s)</li></a>
-      <a href="#"><li @click="changeData('tp_sw1')" class=" -primary m-3">Peak period of Primary Swell</li></a>
-      <a href="#"><li @click="changeData('tp_sw8')" class=" -primary m-3">Peak period of swell (>8s)</li></a>
-      <a href="#"><li @click="changeData('dpm_sw8')" class=" -primary m-3">Mean direction at swell peak frequency (from)</li></a>
-      <a href="#"><li @click="changeData('dpm_sw1')" class=" -primary m-3">Mean direction of primary swell peak frequency</li></a>
+      <a href="#"><li @click="changeData('hs_sw8')" class="primary m-3">Significant wave height of swell (> 8s)</li></a>
+      <a href="#"><li @click="changeData('tp_sw1')" class="primary m-3">Peak period of Primary Swell</li></a>
+      <a href="#"><li @click="changeData('tp_sw8')" class="primary m-3">Peak period of swell (>8s)</li></a>
+      <a href="#"><li @click="changeData('dpm_sw8')" class="primary m-3">Mean direction at swell peak frequency (from)</li></a>
+      <a href="#"><li @click="changeData('dpm_sw1')" class="primary m-3">Mean direction of primary swell peak frequency</li></a>
       
     
-      <a href="#"><li @click="changeData('hs_sea8')" class=" -primary m-3">Significant wave height of sea</li></a>
-      <a href="#"><li @click="changeData('hs_sea')" class=" -primary m-3">Significant wave height of wind sea</li></a>
-      <a href="#"><li @click="changeData('tp_sea8')" class=" -primary m-3">Peak period of sea</li></a>
-      <a href="#"><li @click="changeData('tp_sea')" class=" -primary m-3">Peak period of wind sea</li></a>
-      <a href="#"><li @click="changeData('tm_sea')" class=" -primary m-3">Peak period of wind sea</li></a>
+      <a href="#"><li @click="changeData('hs_sea8')" class="primary m-3">Significant wave height of sea</li></a>
+      <a href="#"><li @click="changeData('hs_sea')" class="primary m-3">Significant wave height of wind sea</li></a>
+      <a href="#"><li @click="changeData('tp_sea8')" class="primary m-3">Peak period of sea</li></a>
+      <a href="#"><li @click="changeData('tp_sea')" class="primary m-3">Peak period of wind sea</li></a>
+      <a href="#"><li @click="changeData('tm_sea')" class="primary m-3">Mean period of wind sea</li></a>
     </ul>
     </div>
     <div class="col-2 pt-5 mt-5">
@@ -69,8 +69,9 @@
     </ul>
     </div>
   </div>
-  <div class="row">
-    <div class="col-12">
+  <div class="row justify-content-center">
+    <div class="col-1"></div>
+    <div class="col-10">
     <div @click="collectDataByDate(`2014-02-10`)" class="btn btn-primary m-4"> 2014-02-10</div>
     <div @click="collectDataByDate(`2014-02-11`)" class="btn btn-primary m-4"> 2014-02-11</div>
     <div @click="collectDataByDate(`2014-02-12`)" class="btn btn-primary m-4"> 2014-02-12</div>
@@ -79,7 +80,9 @@
     <div @click="collectDataByDate(`2014-02-15`)" class="btn btn-primary m-4"> 2014-02-15</div>
     <div @click="collectDataByDate(`2014-02-16`)" class="btn btn-primary m-4"> 2014-02-16</div>
     <div @click="collectDataByDate(`2014-02-17`)" class="btn btn-primary m-4"> 2014-02-17</div>
+    
 </div>
+<div class="col-1"></div>
   </div>
   </div>
 
@@ -241,9 +244,11 @@ export default {
       .attr("class", "bar")
       .attr("x", g => xScale(g.hour))
       .attr("y", g => yScale(g[option]))
-      .attr("height", g => chart_height - yScale(g[option]))
+      .attr("height", g => 600 - yScale(g[option]))
       .attr("width", xScale.bandwidth())
       .attr("width", xScale.bandwidth())
+      .attr("fill", 'blue')
+      .attr("fill-opacity","0.4")
       .on("mouseover", function(d) {
           console.log(d[option])
           d3.select('.title').text(`Value: ${d[option]}`)})
