@@ -1,21 +1,12 @@
 <template>
   <div>
     <div>
-  <h1>MetOcean Data</h1>
-    <h3 class="textsize">Please select from the dates below. </h3>
-  </div>
-<graphVisualisation></graphVisualisation>
+      <h1>MetOcean Data</h1>
+      <h3 class="textsize">Please select from the dates below. </h3>
+    </div>
+    <graphVisualisation></graphVisualisation>
   </div>
 </template>
-
-<script>
-export default {
-   mounted() {
-            console.log('Component mounted.')
-        }
-  
-}
-</script>
 
 <style>
     h1, h3, h4{

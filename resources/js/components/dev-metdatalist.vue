@@ -1,14 +1,8 @@
 <template>
     <div class="container">
-        <div class="row justify-content-center">
-           
+        <div class="row justify-content-center">           
            <div>
-                  
-               <div style="position: fixed; z-index: 10; top:50%; left: 50%;" @click="collectDataByDate('2014-02-10')" class="btn btn-primary">
-                   HELlo
-               </div>
-
-           <table>
+            <table>
                 <tr>
                     <th>Date</th>    
                     <th>ID</th>    
@@ -35,8 +29,6 @@
                     <th>Mean direction at wind sea peak frequency (from)</th>
                     <th>Infragravity significant wave height</th>    
                     <th>Far infragravity wave height</th>    
-                   
-                    <!-- Component Below -->
                     <th>Mean wind speed at 10m</th>    
                     <th>Typical Gust speed</th>    
                     <th>Wind direction (from)</th>    
@@ -185,5 +177,4 @@
         border: 1px solid #616060;
         border-collapse: collapse;
     }
-
 </style>

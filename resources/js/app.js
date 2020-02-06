@@ -3,7 +3,6 @@ import VueRouter from 'vue-router'
 
 import { routes } from './routes'
 
-
 require('./bootstrap');
 
 // window.Vue = require('vue');
@@ -15,11 +14,10 @@ const router = new VueRouter({
   routes
 })
 
-Vue.component('metdatalist', require('./components/metdatalist.vue').default)
-Vue.component('calendar', require('./components/calendar.vue').default)
+Vue.component('dev-metdatalist', require('./components/dev-metdatalist.vue').default)
+Vue.component('dev-calendar', require('./components/dev-calendar.vue').default)
 Vue.component('graphVisualisation', require('./components/graphvisualisation.vue').default)
 Vue.component('home', require('./components/home.vue').default)
-Vue.component('changedatabuttons', require('./components/ChangeDataButtons.vue').default)
 
 const app = new Vue({
   el: '#app',

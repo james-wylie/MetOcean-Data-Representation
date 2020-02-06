@@ -28,7 +28,7 @@ class CreateMetOceanDataTable extends Migration
             $table->decimal('hs_sw8', 8, 2);
             $table->decimal('tp_sw1', 8, 2);
             $table->decimal('tp_sw8', 8, 2);
-            $table->integer('dpm_sw8');// Perhaps discrepancy in the data here. 
+            $table->integer('dpm_sw8');// Perhaps discrepancy in the data here. // Checked and nope fine!
             $table->integer('dpm_sw1');
             $table->decimal('hs_sea8', 8, 2);
             $table->decimal('hs_sea', 8, 2);

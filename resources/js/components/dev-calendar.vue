@@ -14,12 +14,10 @@
                 </tr> 
 
                 <tr  v-for="(metDataEntry, index) in metData" :key="metDataEntry.id">
-                    <!-- <router-link :to="{ name: 'showHour', params: {id: metDataEntry.id }}" > -->
                     <td>{{metDataEntry.Time}}</td>    
                     <td>{{metDataEntry.id}}</td>    
                     <td>{{metDataEntry.day}}</td>    
                     <td>{{metDataEntry.hour}}</td>    
-                    <!-- </router-link> -->
                 </tr>  
             </table>    
 
