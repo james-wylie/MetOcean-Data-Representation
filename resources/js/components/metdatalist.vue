@@ -3,6 +3,10 @@
         <div class="row justify-content-center">
            
            <div>
+                  
+               <div style="position: fixed; z-index: 10; top:50%; left: 50%;" @click="collectDataByDate('2014-02-10')" class="btn btn-primary">
+                   HELlo
+               </div>
 
            <table>
                 <tr>
@@ -109,6 +113,7 @@
         data() {
             return {
                 metData: [],
+                dataByDate: [],
                 metDataEntry: {
                     Time: '',
                     id: '',
@@ -160,8 +165,10 @@
         }, 
         methods: {
             collectDataByDate(date){
-                let dateDate = this.metData.map(el => el.day === date)
-                returngit 
+                let dateDate = this.metData.filter(el => el.day == date)
+                console.log(this.metData)
+                this.dataByDate.push(activePageDate)
+                console.log(this.dataByDate)
             } 
         }
     }

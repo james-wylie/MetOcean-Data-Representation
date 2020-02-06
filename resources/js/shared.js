@@ -7,10 +7,12 @@ export default {
           el.day = day_hour[0]
           let hour_hour = day_hour[1].split(":")
           el.hour = hour_hour[0]
+          let day_short = day_hour[0].split("-")
+          el.dayOnly = day_short[2]
           return el
         })
         this.metData = res.data
-        console.log(res.data)
+        // console.log(res.data)
       })                    
       .catch(err => {
         console.log(err)

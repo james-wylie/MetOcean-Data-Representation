@@ -17,7 +17,7 @@ const router = new VueRouter({
 
 Vue.component('metdatalist', require('./components/metdatalist.vue').default)
 Vue.component('calendar', require('./components/calendar.vue').default)
-Vue.component('graphVisualization', require('./components/d3.vue').default)
+Vue.component('graphVisualisation', require('./components/graphvisualisation.vue').default)
 Vue.component('home', require('./components/home.vue').default)
 Vue.component('changedatabuttons', require('./components/ChangeDataButtons.vue').default)
 
