@@ -3,13 +3,12 @@
     
     <div style="font-size: 14px;" class="row">
     <div class="col-7">
-    <svg class="svg mt-5 pt-5"></svg>
+    <svg class="svg mt-5 pt-2 img-fluid"></svg>
     </div>
     
     <div class="col-2 mt-5 pt-5">
        <h4 class="pl-4"> Please select your data: </h4>
     <ul class="pt-5">
-      <a href="#"><li @click="changeData('id')" class="primary m-3">ID</li></a>
       <a href="#"><li @click="changeData('lev')" class="primary m-3">Elevation</li></a>
       <a href="#"><li @click="changeData('hs')" class="primary m-3">Significant Wave Height</li></a>
       <a href="#"><li @click="changeData('hx')" class="primary m-3">Spectral estimate of maximum wave</li></a>
@@ -69,7 +68,7 @@
     </ul>
     </div>
   </div>
-  <div class="row justify-content-center">
+  <div class="row justify-content-center mt-3">
     <div class="col-1"></div>
     <div class="col-10">
     <div @click="collectDataByDate(`2014-02-10`)" class="btn btn-primary m-4"> 2014-02-10</div>

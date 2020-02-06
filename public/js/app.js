@@ -2096,7 +2096,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 
@@ -68177,7 +68176,7 @@ var render = function() {
   return _c("div", { staticClass: "bg-light textsize" }, [
     _c("div", { staticClass: "row", staticStyle: { "font-size": "14px" } }, [
       _c("div", { staticClass: "col-7" }, [
-        _c("svg", { staticClass: "svg mt-5 pt-5" })
+        _c("svg", { staticClass: "svg mt-5 pt-2 img-fluid" })
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-2 mt-5 pt-5" }, [
@@ -68186,21 +68185,6 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("ul", { staticClass: "pt-5" }, [
-          _c("a", { attrs: { href: "#" } }, [
-            _c(
-              "li",
-              {
-                staticClass: "primary m-3",
-                on: {
-                  click: function($event) {
-                    return _vm.changeData("id")
-                  }
-                }
-              },
-              [_vm._v("ID")]
-            )
-          ]),
-          _vm._v(" "),
           _c("a", { attrs: { href: "#" } }, [
             _c(
               "li",
@@ -68793,7 +68777,7 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "row justify-content-center" }, [
+    _c("div", { staticClass: "row justify-content-center mt-3" }, [
       _c("div", { staticClass: "col-1" }),
       _vm._v(" "),
       _c("div", { staticClass: "col-10" }, [
@@ -68936,7 +68920,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", [
-      _c("h1", [_vm._v("MetData")]),
+      _c("h1", [_vm._v("MetOcean Data")]),
       _vm._v(" "),
       _c("h3", { staticClass: "textsize" }, [
         _vm._v("Please select from the dates below. ")
@@ -84772,13 +84756,13 @@ __webpack_require__.r(__webpack_exports__);
 
     axios.get('get-metocean-data').then(function (res) {
       var newMap = res.data.map(function (el) {
-        var day_hour = el.Time.split(" ");
-        el.day = day_hour[0];
-        var hour_hour = day_hour[1].split(":");
-        el.hour = hour_hour[0];
+        var dayHour = el.Time.split(' ');
+        el.day = dayHour[0];
+        var hourHour = dayHour[1].split(':');
+        el.hour = hourHour[0];
         return el;
       });
-      _this.metData = res.data; // console.log(res.data)
+      _this.metData = res.data;
     })["catch"](function (err) {
       console.log(err);
     });

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-  <h1>MetData</h1>
+  <h1>MetOcean Data</h1>
     <h3 class="textsize">Please select from the dates below. </h3>
   </div>
 <graphVisualisation></graphVisualisation>

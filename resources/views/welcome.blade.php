@@ -12,7 +12,7 @@
 
     </head>
     <body>
-       <div id="app">
+       <div style="width:100%; height:100%; margin:0; overflow:hidden;" id="app">
        <router-view></router-view>
        
             <!-- <home></home> -->
